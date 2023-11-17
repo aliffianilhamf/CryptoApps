@@ -1,12 +1,19 @@
 from django.shortcuts import render, redirect
-from .forms import CreateUser, Login
+from .forms import CreateUser, Login, AddCeritaForm,UpdateCeritaForm
 
 from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate
+from django.contrib.auth.decorators import login_required
+
+from . models import Cerita
 
 # Create your views here.
 def index(request):
-    return render(request, 'webapp/index.html')
+    cerita = Cerita.objects.all()
+    context = {
+        'ceritas' : cerita
+    }
+    return render(request, 'webapp/index.html', context)
 
 # register
 def register(request) :
@@ -46,6 +53,7 @@ def login(request):
 # dashboard
 def dashboard(request):
     
+    
     return render(request, 'webapp/index.html')
 
 
@@ -54,3 +62,22 @@ def logout(request):
     auth.logout(request)
     
     return redirect("login")
+
+# Create
+@login_required(login_url='login')
+def addCerita(request):
+    form = AddCeritaForm()
+    
+    if request.method == "POST":
+        form = AddCeritaForm(request.POST)
+        
+        if form.is_valid() : 
+            form.save() 
+            return redirect('index')
+    context = {
+        'forms' : form
+    }
+    
+    return render(request, 'webapp/addCerita.html', context)
+    
+    

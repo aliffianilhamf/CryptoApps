@@ -3,5 +3,30 @@
 <h3>Silahkan Login</h3>
 {% else %}
 <h3>Selamat datang {{user}}</h3>
+<div class="container">
+    <table class="table table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">No</th>
+            <th scope="col">Sampul</th>
+            <th scope="col">Judul</th>
+            <th scope="col">Konten</th>
+            <th scope="col">Detail</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for cerita in ceritas  %}
+            <tr>
+                <th scope="row">{{ forloop.counter}}</th>
+                <td><img src="{{cerita.image_url| default_if_none:'#' }}" alt="" width="100px" heigth : 100px></td>
+                <td >{{cerita.judul}}</td>
+                <td class="col-sm-5">{{cerita.konten | truncatechars:100}}</td>
+                <td>@mdoddafdfsfd</td>
+              </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div>
 {% endif %}
+
 {% endblock content %}

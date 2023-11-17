@@ -1,0 +1,13 @@
+
+{% extends "webapp/base.html" %} {% block content %}
+<div class="container">
+  <h2>Tambah Post Baru</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %} {{forms.as_p}}
+    <br />
+    <button type="submit" class="btn btn-primary">Tambah</button>
+  </form>
+</div>
+{% endblock content %}
+
+
