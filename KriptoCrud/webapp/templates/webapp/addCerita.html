@@ -1,13 +1,20 @@
+{% extends "webapp/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
 
-{% extends "webapp/base.html" %} {% block content %}
-<div class="container">
-  <h2>Tambah Post Baru</h2>
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %} {{forms.as_p}}
-    <br />
-    <button type="submit" class="btn btn-primary">Tambah</button>
-  </form>
-</div>
+    <div class="container bg-light shadow-md p-3 form-layout mt-5">
+        <h3>Tambahkan Cerita</h3>
+        <br>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{forms | crispy}} 
+            <button type="submit" class="btn btn-primary w-100 btn-block p-2">Tambah</button>
+        </form>
+        <br>
+        <div class="text-center">
+            <a href="{% url 'index' %}"> Kembali </a>
+        </div>
+    </div>
+ 
 {% endblock content %}
-
 

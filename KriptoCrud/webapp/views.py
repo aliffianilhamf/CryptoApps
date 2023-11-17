@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 
 from . models import Cerita
 
+from django.views import generic,View
+from django.shortcuts import render, get_object_or_404,reverse
 # Create your views here.
 def index(request):
     cerita = Cerita.objects.all()
@@ -69,9 +71,10 @@ def addCerita(request):
     form = AddCeritaForm()
     
     if request.method == "POST":
-        form = AddCeritaForm(request.POST)
+        form = AddCeritaForm(request.POST, request.FILES)
         
         if form.is_valid() : 
+            form.judul = "bot"
             form.save() 
             return redirect('index')
     context = {
@@ -79,5 +82,6 @@ def addCerita(request):
     }
     
     return render(request, 'webapp/addCerita.html', context)
+
     
     
