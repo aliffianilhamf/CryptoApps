@@ -1,1 +1,7 @@
-{% extends "webapp/base.html" %} {% block content %} {% endblock content %}
+{% extends "webapp/base.html" %} {% block content %} 
+{% if not user.is_authenticated %}
+<h3>Silahkan Login</h3>
+{% else %}
+<h3>Selamat datang {{user}}</h3>
+{% endif %}
+{% endblock content %}
