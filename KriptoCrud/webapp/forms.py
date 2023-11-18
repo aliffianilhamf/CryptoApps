@@ -25,6 +25,7 @@ class AddCeritaForm(forms.ModelForm):
     class Meta : 
         model = Cerita
         fields = ['judul', 'konten', 'image','penulis']
+        penulis_id = forms.IntegerField(widget=forms.HiddenInput())
         
 # update cerita
 class UpdateCeritaForm(forms.ModelForm):
