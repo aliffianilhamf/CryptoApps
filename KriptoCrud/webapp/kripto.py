@@ -15,7 +15,7 @@ def enkripsi_caesar(plaintext, shift):
     return ciphertext
 
 # Contoh penggunaan
-plaintext = "aliffianilham"
+plaintext = "alip"
 shift_amount = 3
 ciphertext = enkripsi_caesar(plaintext, shift_amount)
 
@@ -38,7 +38,7 @@ def dekripsi_caesar(ciphertext, shift):
     return plaintext
 
 # Contoh penggunaan
-ciphertext = "doliildqlokdp"
+ciphertext = "dols"
 shift_amount = 3
 plaintext = dekripsi_caesar(ciphertext, shift_amount)
 

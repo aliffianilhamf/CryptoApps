@@ -21,7 +21,7 @@
                 <td><img src="{{cerita.image_url| default_if_none:'#' }}" alt="" width="100px" heigth : 100px></td>
                 <td >{{cerita.judul}}</td>
                 <td class="col-sm-5">{{cerita.konten | truncatechars:100}}</td>
-                <td>@mdoddafdfsfd</td>
+                <td>{{cerita.penulis}}</td>
               </tr>
             {% endfor %}
         </tbody>
