@@ -1,14 +1,14 @@
 {% extends "webapp/base.html" %} {% block content %} 
-{% if not user.is_authenticated %}
-<h3>Silahkan Login</h3>
-{% else %}
-<h3>Selamat datang {{user}}</h3>
+
+{% if user.is_authenticated %}
+
 <div class="container">
+  <h3 class="p-2">Selamat datang {{uss}} !</h3>
+<a href="{% url 'addCerita' %}" class="btn btn-success mb-2">Tambah Cerita</a>
     <table class="table table-hover">
         <thead class="table-dark">
           <tr>
             <th scope="col">No</th>
-            <th scope="col">Sampul</th>
             <th scope="col">Judul</th>
             <th scope="col">Konten</th>
             <th scope="col">Detail</th>
@@ -18,15 +18,16 @@
             {% for cerita in ceritas  %}
             <tr>
                 <th scope="row">{{ forloop.counter}}</th>
-                <td><img src="{{cerita.image_url| default_if_none:'#' }}" alt="" width="100px" heigth : 100px></td>
                 <td >{{cerita.judul}}</td>
                 <td class="col-sm-5">{{cerita.konten | truncatechars:100}}</td>
-                <td>{{cerita.penulis}}</td>
+                <td><a href="#" class="btn btn-success">Detail</a></td>
               </tr>
             {% endfor %}
         </tbody>
       </table>
 </div>
+{% else %}
+<h3>Silahkan Login</h3>
 {% endif %}
 
 {% endblock content %}

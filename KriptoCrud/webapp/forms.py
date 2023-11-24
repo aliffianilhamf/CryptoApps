@@ -24,11 +24,11 @@ class Login(AuthenticationForm):
 class AddCeritaForm(forms.ModelForm):
     class Meta : 
         model = Cerita
-        fields = ['judul', 'konten', 'image','penulis']
-        penulis_id = forms.IntegerField(widget=forms.HiddenInput())
+        fields = ['judul', 'konten']
+     
         
 # update cerita
 class UpdateCeritaForm(forms.ModelForm):
     class Meta : 
         model = Cerita
-        fields = ['judul', 'konten', 'image','penulis']
+        fields = ['judul', 'konten', ]
