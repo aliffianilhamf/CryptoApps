@@ -11,6 +11,7 @@ urlpatterns = [
     path("logout/", views.logout, name="logout"),
     
     # Crud
-   path("addCerita/",views.addCerita, name="addCerita")
+   path("addCerita/",views.addCerita, name="addCerita"),
+   path("detail/<int:pk>", views.detail, name="detail"),
 ]
 #urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

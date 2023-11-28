@@ -1,0 +1,15 @@
+{% extends "webapp/base.html" %}
+{% block content %}
+<div class="container">
+<div class="card" style="width: 80rem;">
+    {% for crt in cerita  %}
+    <div class="card-body">
+      <h5 class="card-title text-center ">{{crt.judul}}</h5>
+      <p class="card-text">{{crt.konten}}</p>
+      <a href="{% url 'index' %}" class="btn btn-primary">Kembali</a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}
+

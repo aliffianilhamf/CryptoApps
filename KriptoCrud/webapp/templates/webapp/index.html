@@ -6,7 +6,7 @@
   <h3 class="p-2">Selamat datang {{uss}} !</h3>
 <a href="{% url 'addCerita' %}" class="btn btn-success mb-2">Tambah Cerita</a>
     <table class="table table-hover">
-        <thead class="table-dark">
+        <thead class="table-dark text-center">
           <tr>
             <th scope="col">No</th>
             <th scope="col">Judul</th>
@@ -17,10 +17,10 @@
         <tbody>
             {% for cerita in ceritas  %}
             <tr>
-                <th scope="row">{{ forloop.counter}}</th>
+                <th scope="row">{{forloop.counter}}</th>
                 <td >{{cerita.judul}}</td>
                 <td class="col-sm-5">{{cerita.konten | truncatechars:100}}</td>
-                <td><a href="#" class="btn btn-success">Detail</a></td>
+                <td class="text-center"><a href="{% url 'detail' cerita.id %}" class="btn btn-success">Detail</a></td>
               </tr>
             {% endfor %}
         </tbody>

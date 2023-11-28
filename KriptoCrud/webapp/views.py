@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,reverse
 from .forms import CreateUser, Login, AddCeritaForm,UpdateCeritaForm
 
 from django.contrib.auth.models import auth
@@ -9,25 +9,28 @@ from . models import Cerita
 from django.contrib.auth.models import User 
 
 from django.views import generic,View
-from .kripto import enkripsi_caesar,dekripsi_caesar
+from .kripto import orthogonal_encrypt,orthogonal_decrypt
 # Create your views here.
 def index(request):
     cerita = Cerita.objects.all().order_by('-id')
     username = request.user.username
     if not username == 'aliffianilham' : 
-        uss = dekripsi_caesar(username,3)
+        uss = orthogonal_decrypt(username,6)
     else :
         uss = username
      
     dekrip_cerita = []
     for i,crt in enumerate(cerita, start=1):
-        dekrip_judul = dekripsi_caesar(crt.judul,3)
-        dekrip_konten = dekripsi_caesar(crt.konten,3)
+        dekrip_judul = orthogonal_decrypt(crt.judul,6)
+        dekrip_konten = orthogonal_decrypt(crt.konten,6)
+        id = crt.id
         dekrip_cerita.append({
             'judul': dekrip_judul,
             'konten' : dekrip_konten,
+            'id' : id,
             "ceritas" :cerita
         })
+   
     context = {
         'ceritas' : dekrip_cerita,
         'uss' : uss
@@ -40,7 +43,7 @@ def register(request) :
     
     if request.method == "POST" :
         request.POST._mutable = True
-        request.POST['username'] = enkripsi_caesar(request.POST['username'],3)
+        request.POST['username'] = orthogonal_encrypt(request.POST['username'],6)
         form = CreateUser(request.POST)
         if form.is_valid():
             form.save()
@@ -57,7 +60,7 @@ def login(request):
     if request.method == "POST": 
         if request.POST['username'] != 'aliffianilham' :
             request.POST._mutable = True
-            request.POST['username'] = enkripsi_caesar(request.POST['username'],3)
+            request.POST['username'] = orthogonal_encrypt(request.POST['username'],6)
         form = Login(request, data=request.POST)
         if form.is_valid():
             #request.POST._mutable = True
@@ -75,13 +78,6 @@ def login(request):
     
     return render(request, 'webapp/login.html', context)
 
-# dashboard
-def dashboard(request):
-    
-    
-    return render(request, 'webapp/index.html')
-
-
 # logout
 def logout(request):
     auth.logout(request)
@@ -95,13 +91,8 @@ def addCerita(request):
     
     if request.method == "POST":
         request.POST._mutable = True
-        request.POST['judul'] = enkripsi_caesar(request.POST['judul'],3)
-        request.POST['konten'] = enkripsi_caesar(request.POST['konten'],3)
-       # image_name = request.FILES.get('image').name if 'image' in request.FILES else None
-       # request.FILES.get('image').name = enkripsi_caesar(image_name,3)
-       # request.POST['image'] = enkripsi_caesar(request.POST['image'],3)
-        #print(request.POST['penulis'])
-        #request.POST['penulis'] = enkripsi_caesar(request.POST['penulis'],3)
+        request.POST['judul'] = orthogonal_encrypt(request.POST['judul'],6)
+        request.POST['konten'] = orthogonal_encrypt(request.POST['konten'],6)
         form = AddCeritaForm(request.POST, request.FILES)
         if form.is_valid() : 
             form.save()
@@ -113,5 +104,23 @@ def addCerita(request):
     
     return render(request, 'webapp/addCerita.html', context)
 
+#detail cerita
+def detail(request, pk) :
+    cerita = Cerita.objects.get(id = pk)
+    dekrip_cerita=[]
+    cerita_id = cerita.id
+    dekrip_judul = orthogonal_decrypt(cerita.judul,6)
+    dekrip_konten = orthogonal_decrypt(cerita.konten,6)
     
-    
+    print(dekrip_judul)
+    dekrip_cerita.append({
+        'judul' : dekrip_judul,
+        'konten' : dekrip_konten,
+        'id' :cerita_id,
+        "cerita" :cerita
+        
+    })
+    context = {
+        'cerita' : dekrip_cerita
+    }
+    return render(request, 'webapp/detailCerita.html', context)
