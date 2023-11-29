@@ -1,16 +1,5 @@
 import math  # Import module math untuk fungsi ceil() dan floor()
 
-
-# def tampilkan_menu():  # Fungsi untuk menampilkan menu
-#     print(
-#         "PROGRAM ENKRIPSI-DEKRIPSI ORTHOGONAL TRANSPOSITION"
-#     )  # Menampilkan judul program
-#     print("\n[MENU]")  # Menampilkan menu
-#     print(" [1] Enkripsi")
-#     print(" [2] Dekripsi")
-#     print(" [3] Keluar")
-
-
 def orthogonal_encrypt(pltx, step_size):  # Fungsi untuk enkripsi
     plain_text = pltx.replace(" ", "-")
     matrix_representation = (
